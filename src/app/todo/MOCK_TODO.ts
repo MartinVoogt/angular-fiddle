@@ -8,18 +8,18 @@ export const listData = [
 	{
 		id: 2,
 		name: "Boodschappen doen",
-		description: "Boodschappen doen voor het weekend",
+		description: "Boodschappen doen voor de week",
 		isCompleted: true
 	},
 	{
 		id: 3,
-		name: "Auto ophalen",
+		name: "Auto ophalen bij garage",
 		description: "",
 		isCompleted: true
 	},
 	{
 		id: 4,
-		name: "Leren Angular",
+		name: "Leren van  Angular",
 		description: "Verder met het leren van Angular",
 		isCompleted: false
 	}

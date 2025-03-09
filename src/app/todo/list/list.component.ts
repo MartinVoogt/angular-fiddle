@@ -22,7 +22,6 @@ export class ListComponent {
             description: "Nieuw todo item",
             isCompleted: false
           };
-          
           this.todoService.add(item); 
     }
 }
