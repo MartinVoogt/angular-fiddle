@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { FirstComponent } from './first/first.component';
-import { SecondComponent } from './second/second.component';
+import { AddComponent } from './add/add.component';
+import { ListComponent } from './todo/list/list.component';
 
 export const routes: Routes = [
-	{ path: 'first' , component: FirstComponent },
-	{ path: 'second' , component: SecondComponent },
+	{ path: '' , component: ListComponent },
+	{ path: 'add' , component: AddComponent },
 ];

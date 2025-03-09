@@ -1,1 +1,8 @@
-<p>list works!</p>
+<section class="todolist">
+	<button (click)="this.addItem()">Nieuw todo</button>
+	<section class="container">
+		@for (item of todoItems; track $index) {
+			<tdf-todo-item [item]="item"></tdf-todo-item>
+		}
+	</section>
+</section>
