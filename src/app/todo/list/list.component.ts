@@ -19,9 +19,10 @@ export class ListComponent {
         let item:ITodo = {
             id: 100, 
             name: "Nieuw Todo", 
-            description: "Nieuw todo item",
+            description: "Nieuw Todo item met een omschrijving.",
             isCompleted: false
           };
+
           this.todoService.add(item); 
     }
 }
