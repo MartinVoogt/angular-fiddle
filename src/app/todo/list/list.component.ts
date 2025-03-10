@@ -12,7 +12,7 @@ import { ITodo } from '../ITodo';
 
 export class ListComponent {
     todoService = inject(TodoService)
-    todoItems = this.todoService.list(); 
+    todoItems = this.todoService.list; 
     
     addItem = () => {
  
