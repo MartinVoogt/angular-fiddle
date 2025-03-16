@@ -1,13 +1,15 @@
-<article>
-	<header>
-
-		<h2>{{item().name}}</h2>
-	</header>
-
-	<p [class.hidden]="item().description === null">{{item().description}}</p>
-	@if(item().isCompleted === false) { 
-		<button (click)="setComplete()">Done!</button> 
-	}
-</article>
+<div class="card mt-3">
+	<div class="card-body">
+		<h3 class="card-title">{{item().name}}</h3>
+		<h4 class="card-subtitle mb-2 text-muted">Card subtitle</h4>
+		<p [class.hidden]="item().description === null" class="card-text">{{item().description}}</p>
+		<div class="d-flex gap-3">
+			@if(item().isCompleted === false) { 
+				<button (click)="setComplete()" class="btn btn-success btn-sm">Done!</button> 
+			}
+			<button (click)="setRemove(item())" class="btn btn-danger btn-sm">Remove</button>	
+		</div>
+	</div>
+  </div>
 
 

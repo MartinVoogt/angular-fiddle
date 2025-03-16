@@ -14,7 +14,7 @@ export class ListComponent {
     todoService = inject(TodoService)
     todoItems = this.todoService.list; 
     
-    addItem = () => {
+    addItem = (): void => {
  
         let item:ITodo = {
             id: 100, 

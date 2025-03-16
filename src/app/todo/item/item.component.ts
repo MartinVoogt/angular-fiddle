@@ -1,5 +1,7 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
+
 import { ITodo } from '../ITodo';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'tdf-todo-item',
@@ -7,9 +9,16 @@ import { ITodo } from '../ITodo';
   styleUrl: './item.component.scss'
 })
 export class ItemComponent {
+
+  todoService = inject(TodoService);
+
   item = input.required<ITodo>();
 
-  setComplete = () => {
+  setComplete = (): void => {
     this.item().isCompleted = true; 
+  }
+
+  setRemove = (todo: ITodo):void => {
+    this.todoService.remove(todo); 
   }
 }

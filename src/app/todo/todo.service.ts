@@ -16,4 +16,10 @@ export class TodoService {
     console.log(newTodo);
     console.log(this.list());
   };
+
+  remove = (todo: ITodo) => {
+    let newList = this.list().filter((ctodo=> ctodo !== todo));
+
+    this.list.set(newList);
+  }
 }
