@@ -1,4 +1,16 @@
-<h1>{{ title }}</h1>
-<tdf-navigation></tdf-navigation>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<tdf-navigation></tdf-navigation>
+			<form class="d-flex ml-4">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-dark" type="submit">Search</button>
+			 </form>
+		</nav>
+    </div>
+</nav>
 
-<router-outlet />
+<div class="container-lg">
+    <h1>{{ title }}</h1>
+    <router-outlet />
+</div>
