@@ -2,9 +2,9 @@ export interface ITodo {
     id: number;
     name: string;
     description: string;
-    createAtDate?: string;
-    completeAtDate?: string;
-    priority: string;
+    createdAtDate?: string;
+    completedAtDate?: string;
+    priority: ITodoPrio;
 }
 
 export interface ITodoPrio {

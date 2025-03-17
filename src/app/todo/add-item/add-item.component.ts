@@ -24,10 +24,14 @@ export class AddItemComponent {
 
     onSubmit = (): void => {
         let today = new Date();
+        let todo = <ITodo> this.todoForm.value;
+        
+        todo = {
+            createdAtDate: today.toString(),
+            completedAtDate: '0000-00-00'
+        , ...todo};
 
-        console.log(this.todoForm.value);
-        /*         let item: {};
-
-        this.todoService.add(item); */
+        console.log(todo);
+        //this.todoService.add(todo)
     };
 }
