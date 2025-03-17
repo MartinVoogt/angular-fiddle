@@ -1,8 +1,18 @@
 <section class="todolist">
-	<button (click)="this.addItem()">Nieuw todo</button>
-	<section class="container">
-		@for (item of todoItems(); track $index) {
-			<tdf-todo-item [item]="item"></tdf-todo-item>
-		}
-	</section>
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3 offset-md-3">
+                <a routerLink="/add-item" class="btn btn-primary">Toevoegen</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col col-md-6">
+                <section>
+                    @for (item of todoItems(); track $index) {
+                        <tdf-todo-item [item]="item"></tdf-todo-item>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
 </section>

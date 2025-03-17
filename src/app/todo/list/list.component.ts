@@ -1,28 +1,16 @@
-import { Component, inject, WritableSignal, computed } from '@angular/core'
-import { TodoService } from '../todo.service'
+import { Component, inject, WritableSignal, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
 import { ITodo } from '../ITodo';
 
 @Component({
     selector: 'tdf-todo-ist',
-    imports: [ItemComponent],
+    imports: [ItemComponent, RouterLink],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })
-
 export class ListComponent {
-    todoService = inject(TodoService)
-    todoItems = this.todoService.list; 
-    
-    addItem = (): void => {
- 
-        let item:ITodo = {
-            id: 100, 
-            name: "Nieuw Todo", 
-            description: "Nieuw Todo item met een omschrijving.",
-            isCompleted: false
-          };
-
-          this.todoService.add(item); 
-    }
+    todoService = inject(TodoService);
+    todoItems = this.todoService.list;
 }

@@ -10,11 +10,7 @@ export class TodoService {
   list = signal<ITodo[]>(listData); 
   
   add = (newTodo: ITodo) => {
-
     this.list.update(currentList => [...currentList, newTodo]);
-
-    console.log(newTodo);
-    console.log(this.list());
   };
 
   remove = (todo: ITodo) => {

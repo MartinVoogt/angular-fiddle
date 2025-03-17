@@ -1,6 +1,8 @@
-import { Component } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { NavigationComponent } from "./navigation/navigation.component";
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavigationComponent } from './navigation/navigation.component';
+
+import { TodoService } from './todo/todo.service';
 
 @Component({
     selector: 'tdf-root',
@@ -8,8 +10,12 @@ import { NavigationComponent } from "./navigation/navigation.component";
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
-
 export class AppComponent {
-    title: string = 'Dit is een Todo App'
-    type: number = 123
+    todoService = inject(TodoService);
+
+    type: number = 123;
+
+    count = () => {
+        return this.todoService.list().length;
+    };
 }

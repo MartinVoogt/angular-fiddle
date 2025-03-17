@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="col col-lg-6">
+        <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="col col-lg-6 m-4">
+                <label for="name">Naam</label>
+                <input type="text" class="form-control" id="name" [formControl]="todoForm.controls.name" />
+                <div class="invalid-feedback">Vul een naam in</div>
+            </div>
+            <div class="col col-lg-6 m-4">
+                <label for="description">Omschrijving</label>
+                <textarea
+                    class="form-control"
+                    id="description"
+                    rows="3"
+                    [formControl]="todoForm.controls.description"
+                ></textarea>
+            </div>
+            <div class="col col-lg-6 m-4">
+                <label for="description">Prioriteit</label>
+                <select
+                    class="form-select"
+                    aria-label="Selecteer prioriteit"
+                    [formControl]="todoForm.controls.priority"
+                >
+                    <option>Selecteer prioriteit</option>
+                    @for (priority of priorities; track priority.value) {
+                        <option value="{{ priority.value }}">{{ priority.name }}</option>
+                    }
+                </select>
+                <div class="invalid-feedback">Selecteer een prioriteit</div>
+            </div>
+            <div class="col col-md-6 m-4">
+                <button type="submit" class="btn btn-primary mb-3">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
