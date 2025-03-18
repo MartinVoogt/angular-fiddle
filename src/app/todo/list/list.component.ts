@@ -1,4 +1,4 @@
-import { Component, inject, WritableSignal, computed } from '@angular/core';
+import { Component, inject, WritableSignal, computed, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
@@ -12,11 +12,9 @@ import { ITodo } from '../ITodo';
 })
 export class ListComponent {
     todoService = inject(TodoService);
-    todoItems = this.todoService.list;
+    todoItems: Signal<ITodo[]>;
 
     constructor() {
-        this.todoService.getList().subscribe((data) => {
-            console.log(data);
-        });
+        this.todoItems = this.todoService.list;
     }
 }

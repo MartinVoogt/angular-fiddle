@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 
@@ -13,9 +13,6 @@ import { TodoService } from './todo/todo.service';
 export class AppComponent {
     todoService = inject(TodoService);
 
-    type: number = 123;
-
-    count = () => {
-        return this.todoService.list().length;
-    };
+    todoList = this.todoService.list;
+    count = computed(() => (this.todoList().length > 0 ? this.todoList().length : 0));
 }

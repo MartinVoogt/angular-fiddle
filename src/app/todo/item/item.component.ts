@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, Pipe } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ITodo } from '../ITodo';
 import { TodoService } from '../todo.service';

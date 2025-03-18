@@ -4,7 +4,7 @@ import { ITodo } from './todo/ITodo';
 
 export class MockData implements InMemoryDbService {
     createDb(reqInfo?: RequestInfo | undefined): {} | Observable<{}> | Promise<{}> {
-        const todos = [
+        const todos: ITodo[] = [
             {
                 id: 1,
                 name: 'eius pectus abscido',
