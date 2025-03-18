@@ -15,7 +15,7 @@ export class ItemComponent {
 
     setComplete = (): void => {
         let today = new Date();
-        this.item().createAtDate = today.toString();
+        this.item().createdAtDate = today.toString();
         console.log(today.toString());
     };
 

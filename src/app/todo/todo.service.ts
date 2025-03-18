@@ -3,19 +3,18 @@ import { ITodo } from './ITodo';
 import { listData } from './MOCK_TODO';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class TodoService {
+    list = signal<ITodo[]>(listData);
 
-  list = signal<ITodo[]>(listData); 
-  
-  add = (newTodo: ITodo) => {
-    this.list.update(currentList => [...currentList, newTodo]);
-  };
+    add = (newTodo: ITodo) => {
+        this.list.update((currentList) => [...currentList, newTodo]);
+    };
 
-  remove = (todo: ITodo) => {
-    let newList = this.list().filter((ctodo=> ctodo !== todo));
+    remove = (todo: ITodo) => {
+        let newList = this.list().filter((ctodo) => ctodo !== todo);
 
-    this.list.set(newList);
-  }
+        this.list.set(newList);
+    };
 }

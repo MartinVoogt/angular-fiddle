@@ -1,17 +1,15 @@
 <div class="card mt-3">
-	<div class="card-body">
-		<h3 class="card-title">{{item().name}}</h3>
-		@if(!item().createAtDate) {
-			<h4 class="card-subtitle mb-2 text-muted">{{ item().createAtDate | date:'fullDate' }} </h4>
-		}
-		<p [class.hidden]="item().description === null" class="card-text">{{item().description}}</p>
-		<div class="d-flex gap-3">
-			@if(!item().createAtDate) { 
-				<button (click)="setComplete()" class="btn btn-success btn-sm">Done!</button> 
-			}
-			<button (click)="setRemove(item())" class="btn btn-danger btn-sm">Remove</button>	
-		</div>
-	</div>
-  </div>
-
-
+    <div class="card-body">
+        <h3 class="card-title">{{ item().name }}</h3>
+        @if (!item().createdAtDate) {
+            <h4 class="card-subtitle mb-2 text-muted">{{ item().createdAtDate | date: 'fullDate' }}</h4>
+        }
+        <p [class.hidden]="item().description === null" class="card-text">{{ item().description }}</p>
+        <div class="d-flex gap-3">
+            @if (!item().createdAtDate) {
+                <button (click)="setComplete()" class="btn btn-success btn-sm">Done!</button>
+            }
+            <button (click)="setRemove(item())" class="btn btn-danger btn-sm">Remove</button>
+        </div>
+    </div>
+</div>

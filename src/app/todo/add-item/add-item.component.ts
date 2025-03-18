@@ -24,14 +24,19 @@ export class AddItemComponent {
 
     onSubmit = (): void => {
         let today = new Date();
-        let todo = <ITodo> this.todoForm.value;
-        
-        todo = {
-            createdAtDate: today.toString(),
-            completedAtDate: '0000-00-00'
-        , ...todo};
+        let form = this.todoForm.value;
 
-        console.log(todo);
-        //this.todoService.add(todo)
+        let [standardPrio] = PRIORITIES;
+
+        let newTodo = <ITodo>{
+            id: null,
+            name: form.name,
+            description: form.description,
+            priority: standardPrio,
+            createdAtDate: today.toISOString(),
+            completedAtDate: '',
+        };
+
+        this.todoService.add(newTodo);
     };
 }
