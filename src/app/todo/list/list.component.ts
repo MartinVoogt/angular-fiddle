@@ -1,4 +1,4 @@
-import { Component, inject, WritableSignal, computed, Signal } from '@angular/core';
+import { Component, inject, WritableSignal, computed, Signal, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
@@ -12,9 +12,14 @@ import { ITodo } from '../ITodo';
 })
 export class ListComponent {
     todoService = inject(TodoService);
-    todoItems: Signal<ITodo[]>;
+    limit = signal<number>(5);
 
-    constructor() {
-        this.todoItems = this.todoService.list;
+    limitChange(event: any) {
+        let value: number = event.currentTarget.value;
+        this.limit.set(value);
     }
+
+    todoItems = computed(() => {
+        return this.todoService.list().slice(0, this.limit());
+    });
 }

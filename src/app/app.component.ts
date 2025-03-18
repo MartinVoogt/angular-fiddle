@@ -13,6 +13,5 @@ import { TodoService } from './todo/todo.service';
 export class AppComponent {
     todoService = inject(TodoService);
 
-    todoList = this.todoService.list;
-    count = computed(() => (this.todoList().length > 0 ? this.todoList().length : 0));
+    count = computed(() => 0);
 }

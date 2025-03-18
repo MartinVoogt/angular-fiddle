@@ -7,7 +7,7 @@ import { TodoService } from '../todo.service';
     selector: 'tdf-todo-item',
     templateUrl: './item.component.html',
     styleUrl: './item.component.scss',
-    imports: [DatePipe],
+    imports: [],
 })
 export class ItemComponent {
     todoService = inject(TodoService);
@@ -15,8 +15,7 @@ export class ItemComponent {
 
     setComplete = (): void => {
         let today = new Date();
-        this.item().createdAtDate = today.toString();
-        console.log(today.toString());
+        this.item().completedAtDate = today.toString();
     };
 
     setRemove = (todo: ITodo): void => {
