@@ -13,4 +13,10 @@ import { ITodo } from '../ITodo';
 export class ListComponent {
     todoService = inject(TodoService);
     todoItems = this.todoService.list;
+
+    constructor() {
+        this.todoService.getList().subscribe((data) => {
+            console.log(data);
+        });
+    }
 }

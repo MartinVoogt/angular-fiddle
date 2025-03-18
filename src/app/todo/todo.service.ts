@@ -1,11 +1,14 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { ITodo } from './ITodo';
 import { listData } from './MOCK_TODO';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TodoService {
+    private httpClient = inject(HttpClient);
+
     list = signal<ITodo[]>(listData);
 
     add = (newTodo: ITodo) => {
@@ -16,5 +19,9 @@ export class TodoService {
         let newList = this.list().filter((ctodo) => ctodo !== todo);
 
         this.list.set(newList);
+    };
+
+    getList = () => {
+        return this.httpClient.get('/api/todos');
     };
 }
