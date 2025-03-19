@@ -22,24 +22,26 @@ export class AddItemComponent {
         priority: new FormControl<string>('', [Validators.required]),
     });
 
-    priorities = PRIORITIES;
+    //priorities = PRIORITIES2;
 
     onSubmit = (): void => {
         let today = new Date();
         let form = this.todoForm.value;
 
-        let [priority] = this.priorities.filter((prio) => prio.value == form.priority) ?? PRIORITIES;
+        //let [priority] = this.priorities.filter((prio) => prio.value == form.priority) ?? PRIORITIES;
 
         let newTodo = <ITodo>{
             id: null,
             name: form.name,
             description: form.description,
-            priority: priority,
+            priority: 'low',
             createdAtDate: today.toISOString(),
             completedAtDate: '',
         };
-
-        this.todoService.add(newTodo);
-        //this.router.navigate(['']);
+        // subscribe actie
+        this.todoService
+            .add(newTodo)
+            .subscribe({ next: (response) => console.log(response), error: (error) => console.log('w00ps') });
+        //this.router.navigate['']);
     };
 }

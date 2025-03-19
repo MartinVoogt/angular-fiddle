@@ -23,9 +23,9 @@
                     [formControl]="todoForm.controls.priority"
                 >
                     <option>Selecteer prioriteit</option>
-                    @for (priority of priorities; track priority.value) {
+                    <!--                     @for (priority of priorities; track priority.value) {
                         <option value="{{ priority.value }}">{{ priority.name }}</option>
-                    }
+                    } -->
                 </select>
                 <div class="invalid-feedback">Selecteer een prioriteit</div>
             </div>
