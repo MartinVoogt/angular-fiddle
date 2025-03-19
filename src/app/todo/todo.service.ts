@@ -7,20 +7,28 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TodoService {
     private httpClient = inject(HttpClient);
-    private requestList$ = this.httpClient.get<ITodo[]>('http://localhost:3000/todos');
+    private requestList$ = this.httpClient.get<ITodo[]>('/api/todos');
 
     public list = signal<ITodo[]>([]);
 
     constructor() {
-        this.requestList$.subscribe((todos) => this.list.set(todos));
+        // sorting ?
+        this.requestList$.subscribe((todos) => {
+            //todos.sort((a: ITodo, b: ITodo) => b.createdAtDate.getTime() - a.createdAtDate.getTime());
+            this.list.set(todos);
+        });
     }
 
-    add = (newTodo: ITodo) => {
-        this.list.update((currentList) => [...currentList, newTodo]);
+    add = (todo: ITodo) => {
+        // return iets?
+        this.httpClient.post<ITodo[]>('/api/todos', todo).subscribe();
+    };
+
+    edit = (todo: ITodo) => {
+        this.httpClient.get<ITodo[]>(`/api/todos/${todo.id}`).subscribe();
     };
 
     remove = (todo: ITodo) => {
-        let newList = this.list().filter((ctodo) => ctodo !== todo);
-        this.list.set(newList);
+        this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`).subscribe();
     };
 }

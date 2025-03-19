@@ -1,0 +1,9 @@
+{
+	"/api": {
+	  "target": "https://67da69fd35c87309f52c51b2.mockapi.io",
+	  "secure": false,
+	  "logLevel": "debug",
+	  "changeOrigin": true
+	}
+  }
+  
