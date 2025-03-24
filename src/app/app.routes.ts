@@ -4,6 +4,7 @@ import { ListComponent } from './todo/list/list.component';
 import { AddItemComponent } from './todo/add-item/add-item.component';
 
 export const routes: Routes = [
-	{ path: '' , component: ListComponent },
-	{ path: 'add-item', component: AddItemComponent }
+    { path: '', component: ListComponent },
+    { path: 'edit-item/:todoId', component: AddItemComponent },
+    { path: 'add-item', component: AddItemComponent },
 ];

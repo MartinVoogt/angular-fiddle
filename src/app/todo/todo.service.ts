@@ -30,7 +30,11 @@ export class TodoService {
 
     add = (todo: ITodo) => {
         // return iets?
-        return this.httpClient.post<ITodo[]>('/api/todos/11', todo);
+        return this.httpClient.post<ITodo[]>('/api/todos', todo);
+    };
+
+    getTodoItem = (todoId: number) => {
+        return this.httpClient.get<ITodo>(`/api/todos/${todoId}`);
     };
 
     edit = (todo: ITodo) => {

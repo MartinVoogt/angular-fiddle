@@ -5,13 +5,13 @@ export interface ITodo {
     name: string;
     description: string;
     createdAtDate: string;
-    completedAtDate?: string;
+    completedAtDate?: string | null;
     hasPriority: boolean;
-    priority: Priority | undefined;
+    priority: Priority | null;
 }
 
 // Enums
-export type Priority = 'low' | 'medium' | 'high';
+export type Priority = 'low' | 'high';
 
 // Type that represents only one of the values from the PRIORITIES object
 //type PriorityType = (typeof PRIORITIES)[keyof typeof PRIORITIES];

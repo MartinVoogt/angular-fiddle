@@ -2,18 +2,21 @@ import { Component, computed, inject, input } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { ITodo } from '../ITodo';
 import { TodoService } from '../todo.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'tdf-todo-item',
     templateUrl: './item.component.html',
     styleUrl: './item.component.scss',
-    imports: [DatePipe, TitleCasePipe],
+    imports: [DatePipe, TitleCasePipe, RouterLink],
 })
 export class ItemComponent {
     router = inject(Router);
-    todoService = inject(TodoService);
     item = input.required<ITodo>();
+    private todoService = inject(TodoService);
+    private toastr = inject(ToastrService);
 
     setComplete = (): void => {
         let today = new Date();
@@ -21,11 +24,7 @@ export class ItemComponent {
     };
 
     setRemove = (todo: ITodo): void => {
-        this.todoService.remove(todo);
-    };
-
-    setEdit = (todo: ITodo): void => {
-        // dit nog uitwerken
-        console.log(this.todoService.edit(todo));
+        // this.todoService.remove(todo);
+        this.toastr.success('Hello world!', 'Toastr fun!');
     };
 }

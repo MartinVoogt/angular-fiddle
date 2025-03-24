@@ -8,7 +8,7 @@
         <div class="d-flex gap-3">
             @if (!item().completedAtDate) {
                 <button (click)="setComplete()" class="btn btn-success btn-sm">Done!</button>
-                <button (click)="setEdit(item())" class="btn btn-primary btn-sm">Edit</button>
+                <a routerLink="/edit-item/{{ item().id }}" class="btn btn-primary btn-sm">Edit</a>
             }
             <button (click)="setRemove(item())" class="btn btn-danger btn-sm">Remove</button>
         </div>
