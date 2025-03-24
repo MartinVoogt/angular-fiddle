@@ -20,8 +20,12 @@
         <div class="row justify-content-center">
             <div class="col col-md-6">
                 <section>
-                    @for (item of todoItems(); track $index) {
-                        <tdf-todo-item [item]="item"></tdf-todo-item>
+                    @for (item of list(); track $index) {
+                        <tdf-todo-item
+                            [item]="item"
+                            (removeTodo)="deleteTodo(item)"
+                            (completeTodo)="updateTodo(item)"
+                        ></tdf-todo-item>
                     }
                 </section>
             </div>

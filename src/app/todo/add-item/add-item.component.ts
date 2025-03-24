@@ -26,9 +26,8 @@ export class AddItemComponent implements OnInit {
     ngOnInit() {
         const todoId = Number(this.activatedRoute.snapshot.params['todoId']);
         if (todoId) {
-            this.todoService.getTodoItem(todoId).subscribe((result) => {
-                const { name, priority, description } = result;
-                this.todoForm.setValue({ name, priority, description });
+            this.todoService.getTodo$(todoId).subscribe((todo) => {
+                this.todoForm.patchValue(todo);
             });
         }
     }
@@ -47,7 +46,7 @@ export class AddItemComponent implements OnInit {
                 completedAtDate: null,
             };
             // subscribe actie
-            this.todoService.add(newTodo).subscribe({
+            this.todoService.add$(newTodo).subscribe({
                 next: (response) => {
                     this.router.navigate(['']);
                 },

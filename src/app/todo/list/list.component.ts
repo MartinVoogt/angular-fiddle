@@ -1,8 +1,10 @@
-import { Component, inject, WritableSignal, computed, Signal, signal } from '@angular/core';
+import { Component, inject, WritableSignal, computed, Signal, signal, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
 import { ITodo } from '../ITodo';
+import { ToastrService } from 'ngx-toastr';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'tdf-todo-ist',
@@ -10,16 +12,37 @@ import { ITodo } from '../ITodo';
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })
-export class ListComponent {
-    todoService = inject(TodoService);
-    limit = signal<number>(5);
+export class ListComponent implements OnInit {
+    private todoService = inject(TodoService);
+    private limit = signal<number>(5);
+    private toastr = inject(ToastrService);
+    public list = signal<ITodo[]>([]);
+
+    ngOnInit() {
+        this.todoService.getAll$().subscribe((todos) => {
+            this.list.set(todos);
+        });
+    }
 
     limitChange(event: any) {
         let value: number = event.currentTarget.value;
         this.limit.set(value);
     }
 
-    todoItems = computed(() => {
-        return this.todoService.list().slice(0, this.limit());
-    });
+    deleteTodo(todo: ITodo) {
+        this.todoService.remove$(todo).subscribe(() => {
+            this.toastr.success('Is succesvol verwijderd', `${todo.id} - ${todo.name}`);
+        });
+    }
+
+    updateTodo(todo: ITodo) {
+        console.log(todo);
+        this.todoService.update$(todo).subscribe(() => {
+            this.toastr.success('Is succesvol geupdate', `${todo.id} - ${todo.name}`);
+
+            this.todoService.getAll$().subscribe((todos) => {
+                this.list.set(todos);
+            });
+        });
+    }
 }

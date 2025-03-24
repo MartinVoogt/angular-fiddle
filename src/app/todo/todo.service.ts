@@ -1,7 +1,7 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, Signal, OnInit } from '@angular/core';
 import { ITodo, Priority } from './ITodo';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, Observable, switchMap, take, tap } from 'rxjs';
 import { setSort } from './utils/sort';
 
 @Injectable({
@@ -9,40 +9,49 @@ import { setSort } from './utils/sort';
 })
 export class TodoService {
     private httpClient = inject(HttpClient);
-    private requestList$ = this.httpClient.get<ITodo[]>('/api/todos');
 
+    // destruct
     private setPriorityValue = (todo: ITodo) => Object.assign({ priority: todo.hasPriority ? 'high' : 'low' }, todo);
     //private setSort = (todoA: ITodo, todoB: ITodo) => (todoA.createdAtDate < todoB.createdAtDate ? 1 : -1);
 
-    public list = signal<ITodo[]>([]);
+    todos = signal<ITodo[]>([]);
 
     constructor() {
-        // sorting ?
-        this.requestList$
-            .pipe(
-                map((todos) => todos.map(this.setPriorityValue)),
-                map((todos) => todos.sort(setSort))
-            )
-            .subscribe((todos) => {
-                this.list.set(todos);
-            });
+        this.getAll$()
+            .pipe(take(1))
+            .subscribe((todos) => this.todos.set(todos));
     }
 
-    add = (todo: ITodo) => {
+    getAll$ = (): Observable<ITodo[]> => {
+        return this.httpClient.get<ITodo[]>('/api/todos').pipe(
+            map((todos) => todos.map(this.setPriorityValue)),
+            map((todos) => todos.sort(setSort)) // naar utils
+        );
+    };
+
+    add$ = (todo: ITodo) => {
         // return iets?
         return this.httpClient.post<ITodo[]>('/api/todos', todo);
     };
 
-    getTodoItem = (todoId: number) => {
-        return this.httpClient.get<ITodo>(`/api/todos/${todoId}`);
+    update$ = (todo: ITodo) => {
+        return this.httpClient.put<ITodo[]>(`/api/todos/${todo.id}`, todo);
+        // aanpassen
+        /*         this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`).pipe(
+            switchMap(() => this.getAll$()),
+            tap((todos) => this.todos.set(todos))
+        ); */
     };
 
-    edit = (todo: ITodo) => {
-        this.httpClient.get<ITodo[]>(`/api/todos/${todo.id}`).subscribe();
+    getTodo$ = (todoId: number) => {
+        return this.httpClient.get<Partial<ITodo>>(`/api/todos/${todoId}`);
     };
 
+    // letop return types
     // subscribe in component
-    remove = (todo: ITodo) => {
-        this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`);
-    };
+    remove$ = (todo: ITodo): Observable<ITodo[]> =>
+        this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`).pipe(
+            switchMap(() => this.getAll$()),
+            tap((todos) => this.todos.set(todos))
+        );
 }
