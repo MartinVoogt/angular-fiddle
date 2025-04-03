@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
     private todoService = inject(TodoService);
     private limit = signal<number>(5);
     private toastr = inject(ToastrService);
+
     public list = signal<ITodo[]>([]);
 
     ngOnInit() {
@@ -36,7 +37,6 @@ export class ListComponent implements OnInit {
     }
 
     updateTodo(todo: ITodo) {
-        console.log(todo);
         this.todoService.update$(todo).subscribe(() => {
             this.toastr.success('Is succesvol geupdate', `${todo.id} - ${todo.name}`);
 

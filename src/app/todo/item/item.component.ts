@@ -2,12 +2,13 @@ import { Component, computed, EventEmitter, inject, input, output } from '@angul
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { ITodo } from '../ITodo';
 import { Router, RouterLink } from '@angular/router';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
     selector: 'tdf-todo-item',
     templateUrl: './item.component.html',
     styleUrl: './item.component.scss',
-    imports: [DatePipe, TitleCasePipe, RouterLink],
+    imports: [DatePipe, TitleCasePipe, RouterLink, ButtonComponent],
 })
 export class ItemComponent {
     router = inject(Router);

@@ -12,15 +12,17 @@ export class TodoService {
 
     // destruct
     private setPriorityValue = (todo: ITodo) => Object.assign({ priority: todo.hasPriority ? 'high' : 'low' }, todo);
-    //private setSort = (todoA: ITodo, todoB: ITodo) => (todoA.createdAtDate < todoB.createdAtDate ? 1 : -1);
 
-    todos = signal<ITodo[]>([]);
+    private todos = signal<ITodo[]>([]);
 
     constructor() {
         this.getAll$()
             .pipe(take(1))
             .subscribe((todos) => this.todos.set(todos));
     }
+
+    // TODO count fixen
+    getCount = computed(() => { return this.todos().length; } );
 
     getAll$ = (): Observable<ITodo[]> => {
         return this.httpClient.get<ITodo[]>('/api/todos').pipe(
@@ -29,8 +31,7 @@ export class TodoService {
         );
     };
 
-    add$ = (todo: ITodo) => {
-        // return iets?
+    add$ = (todo: ITodo)  => {
         return this.httpClient.post<ITodo[]>('/api/todos', todo);
     };
 
