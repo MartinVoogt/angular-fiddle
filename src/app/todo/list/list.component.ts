@@ -1,28 +1,39 @@
-import { Component, inject, WritableSignal, computed, Signal, signal, OnInit } from '@angular/core';
+import { Component, inject, Signal, signal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
 import { ITodo } from '../ITodo';
 import { ToastrService } from 'ngx-toastr';
-import { TitleCasePipe } from '@angular/common';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
     selector: 'tdf-todo-ist',
-    imports: [ItemComponent, RouterLink],
+    imports: [ItemComponent, RouterLink, SearchComponent],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
     private todoService = inject(TodoService);
     private limit = signal<number>(5);
     private toastr = inject(ToastrService);
+    private search = signal<string>(''); // search value
+    private allTodos: Signal<ITodo[]> = this.todoService.todos ?? signal([]);
 
-    public list = signal<ITodo[]>([]);
+    // list with filtered content
+    public list = computed(() => {
+        const searchTerm = this.search().toLowerCase();
+        const limitVal = this.limit();
 
-    ngOnInit() {
-        this.todoService.getAll$().subscribe((todos) => {
-            this.list.set(todos);
-        });
+        const filtered = this.allTodos().filter(
+            (todo) =>
+                todo.name.toLowerCase().includes(searchTerm) || todo.description.toLowerCase().includes(searchTerm)
+        );
+
+        return filtered.slice(0, limitVal);
+    });
+
+    todosBySearchValue(value: string | null) {
+        this.search.set(value ?? '');
     }
 
     limitChange(event: any) {
@@ -39,10 +50,6 @@ export class ListComponent implements OnInit {
     updateTodo(todo: ITodo) {
         this.todoService.update$(todo).subscribe(() => {
             this.toastr.success('Is succesvol geupdate', `${todo.id} - ${todo.name}`);
-
-            this.todoService.getAll$().subscribe((todos) => {
-                this.list.set(todos);
-            });
         });
     }
 }

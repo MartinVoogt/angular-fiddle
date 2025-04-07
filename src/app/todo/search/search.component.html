@@ -1,0 +1,16 @@
+<form class="d-flex ml-4 needs-validation searchform">
+    <div class="input-group has-validation">
+        @if (searchInput.invalid && searchInput.touched && searchInput.errors) {
+            <div class="invalid-feedback error-message show d-inline-block">Geen valide input</div>
+        }
+        <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Zoek todo-item"
+            aria-label="Zoeken"
+            minlength="{{ minLength() }}"
+            [formControl]="searchInput"
+            (keyup)="valueChangeHandle()"
+        />
+    </div>
+</form>
