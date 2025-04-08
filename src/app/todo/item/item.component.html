@@ -7,7 +7,7 @@
         <p [class.hidden]="item().description === null" class="card-text">{{ item().description }}</p>
     </div>
     <div class="card-footer d-flex gap-3 bg-white">
-        @if (!item().completedAtDate) {
+        @if (!item().isCompleted) {
             <button (click)="setComplete()" class="btn btn-success btn-sm">Done!</button>
             <a routerLink="/edit-item/{{ item().id }}" class="btn btn-primary btn-sm">Edit</a>
         }

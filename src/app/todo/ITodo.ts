@@ -6,6 +6,7 @@ export interface ITodo {
     description: string;
     createdAtDate: string;
     completedAtDate?: string | null;
+    isCompleted: boolean;
     hasPriority: boolean;
     priority: Priority | null;
 }
@@ -15,3 +16,10 @@ export type Priority = 'low' | 'high';
 
 // Type that represents only one of the values from the PRIORITIES object
 //type PriorityType = (typeof PRIORITIES)[keyof typeof PRIORITIES];
+
+// deze verplaatsen
+export interface IOption {
+    label: string;
+    value: string | number;
+    selected?: boolean;
+}

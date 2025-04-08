@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
     private destroyRef = inject(DestroyRef);
 
     public minLength = input<number>(4);
-    public notifyParent = output<string | null>();
+    public searchValue = output<string | null>();
 
     // [(ngModel)]=
 
@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
     }
 
     valueChangeHandle() {
-        this.notifyParent.emit(this.searchInput.value);
+        // hier checken op value?
+        this.searchValue.emit(this.searchInput.value);
     }
 }

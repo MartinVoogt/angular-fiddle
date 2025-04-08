@@ -4,7 +4,7 @@
             <div class="col col-md-6"></div>
         </div>
         <div class="row justify-content-center">
-            <div class="col col-md-3">
+            <div class="col col-md-3 offset-md-3">
                 <a routerLink="/add-item" class="btn btn-primary">Toevoegen</a>
             </div>
             <div class="col col-md-3 d-flex justify-content-end align-items-center gap-3">
@@ -24,9 +24,18 @@
         </div>
         <div class="row justify-content-center">
             <div class="col col-md-3">
-                <h4>Filters</h4>
-                <div class="search d-block p-3 rounded shadow-sm">
-                    <tdf-search (notifyParent)="todosBySearchValue($event)" [minLength]="4"></tdf-search>
+                <div class="filters p-3 rounded shadow-sm">
+                    <h4 class="fw-normal">Filters</h4>
+                    <div class="search">
+                        <tdf-search (searchValue)="todosBySearchValue($event)" [minLength]="4"></tdf-search>
+                    </div>
+                    <div class="todo-state mt-3">
+                        <tdf-select
+                            (selectedValue)="todosByStateValue($event)"
+                            [label]="'Weergave'"
+                            [options]="filterOptions"
+                        ></tdf-select>
+                    </div>
                 </div>
             </div>
             <div class="col col-md-6">

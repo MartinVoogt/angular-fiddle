@@ -1,0 +1,10 @@
+@if (label()) {
+    <label for="todo-view" class="form-label">{{ label() }}</label>
+}
+<select id="todo-view" class="form-select" (change)="changeEvent($event)">
+    @for (option of options(); track option) {
+        <option value="{{ option.value }}" [selected]="option.selected === true ? 'selected' : ''">
+            {{ option.label }}
+        </option>
+    }
+</select>

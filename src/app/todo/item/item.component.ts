@@ -19,6 +19,7 @@ export class ItemComponent {
     setComplete = () => {
         let today = new Date();
         this.item().completedAtDate = today.toString();
+        this.item().isCompleted = true;
         this.completeTodo.emit();
     };
 
