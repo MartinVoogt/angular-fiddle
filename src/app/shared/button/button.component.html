@@ -1,4 +1,3 @@
-<button [class]
-[disabled]>
-	<ng-content></ng-content>
+<button [class]="`btn ${class()}`" [disabled]="disabled()">
+    <ng-content></ng-content>
 </button>

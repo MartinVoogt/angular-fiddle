@@ -12,12 +12,11 @@ export class SelectComponent {
     public label = input<string>('');
     public selectedValue = output<IOption>();
 
-    changeEvent(event: Event) {
+    changeEvent(event: Event): void {
         let element = event.target as HTMLSelectElement;
         let selectedOption = element.options[element.selectedIndex];
         let option: IOption = { label: selectedOption.innerText, value: selectedOption.value };
 
         this.selectedValue.emit(option);
-        // emit
     }
 }

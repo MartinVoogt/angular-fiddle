@@ -5,7 +5,7 @@ import { ButtonComponent } from './shared/button/button.component';
 
 import { TodoService } from './todo/todo.service';
 
-const imports = [RouterOutlet, NavigationComponent, ButtonComponent];
+const imports = [RouterOutlet, NavigationComponent];
 
 @Component({
     selector: 'tdf-root',
