@@ -1,20 +1,22 @@
-import { Component, computed, EventEmitter, inject, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { ITodo } from '../ITodo';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ButtonComponent } from '../../shared/button/button.component';
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
     selector: 'tdf-todo-item',
     templateUrl: './item.component.html',
     styleUrl: './item.component.scss',
-    imports: [DatePipe, TitleCasePipe, RouterLink, ButtonComponent],
+    imports: [DatePipe, TitleCasePipe, ButtonComponent],
 })
 export class ItemComponent {
     router = inject(Router);
     item = input.required<ITodo>();
     removeTodo = output();
     completeTodo = output();
+    faCheckIcon = faCircleCheck;
 
     setComplete = () => {
         let today = new Date();
@@ -25,5 +27,9 @@ export class ItemComponent {
 
     setRemove = () => {
         this.removeTodo.emit();
+    };
+
+    handleEditRoute = () => {
+        this.router.navigate(['edit-item', this.item().id]);
     };
 }

@@ -1,3 +1,8 @@
-<button [class]="`btn ${class()}`" [disabled]="disabled()">
+<button
+    [class]="`${class()}`"
+    [disabled]="isDisabled()"
+    (click)="handleClickEvent($event)"
+>
+    <fa-icon [icon]="icon()!"></fa-icon>
     <ng-content></ng-content>
 </button>
