@@ -2,3 +2,7 @@
 	display: contents;
 }
 
+button:has(fa-icon) span {
+	margin-left: .25em;
+}
+

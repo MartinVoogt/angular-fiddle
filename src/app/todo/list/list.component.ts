@@ -1,19 +1,22 @@
 import { Component, inject, Signal, signal, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
 import { ITodo, IOption } from '../ITodo';
 import { ToastrService } from 'ngx-toastr';
 import { SearchComponent } from '../search/search.component';
 import { SelectComponent } from '../../shared/form/select/select.component';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'tdf-todo-ist',
-    imports: [ItemComponent, RouterLink, SearchComponent, SelectComponent],
+    imports: [ItemComponent, SearchComponent, SelectComponent, ButtonComponent],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })
 export class ListComponent {
+    private router = inject(Router);
     private todoService = inject(TodoService);
     private limit = signal<number>(5);
     private toastr = inject(ToastrService);
@@ -21,6 +24,7 @@ export class ListComponent {
     private filterState = signal<IOption>({ label: '', value: '' }); // hmm ...
     private allTodos: Signal<ITodo[]> = this.todoService.todos ?? signal([]);
 
+    public faAddIcon = faPlus;
     // misschien eerder een const van maken, in een andere file?
     public filterOptions: Array<IOption> = [
         { label: 'Alle todos', value: '', selected: true },
@@ -36,18 +40,25 @@ export class ListComponent {
 
         const searchFiltered = this.allTodos().filter(
             (todo) =>
-                todo.name.toLowerCase().includes(searchTerm) || todo.description.toLowerCase().includes(searchTerm)
+                todo.name.toLowerCase().includes(searchTerm) ||
+                todo.description.toLowerCase().includes(searchTerm)
         );
 
         const filteredByState =
             state.value !== ''
                 ? searchFiltered.filter((todo) => {
-                      return state.value == 'open' ? todo.isCompleted == false : todo.isCompleted == true;
+                      return state.value == 'open'
+                          ? todo.isCompleted == false
+                          : todo.isCompleted == true;
                   })
                 : searchFiltered;
 
         return filteredByState.slice(0, limitVal);
     });
+
+    handleAddRoute() {
+        this.router.navigate(['add-item']);
+    }
 
     todosBySearchValue(value: string | null) {
         this.search.set(value ?? '');
@@ -64,13 +75,19 @@ export class ListComponent {
 
     deleteTodo(todo: ITodo) {
         this.todoService.remove$(todo).subscribe(() => {
-            this.toastr.success('Is succesvol verwijderd', `${todo.id} - ${todo.name}`);
+            this.toastr.success(
+                'Is succesvol verwijderd',
+                `${todo.id} - ${todo.name}`
+            );
         });
     }
 
     updateTodo(todo: ITodo) {
         this.todoService.update$(todo).subscribe(() => {
-            this.toastr.success('Is succesvol geupdate', `${todo.id} - ${todo.name}`);
+            this.toastr.success(
+                'Is succesvol geupdate',
+                `${todo.id} - ${todo.name}`
+            );
         });
     }
 }

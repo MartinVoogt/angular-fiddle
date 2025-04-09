@@ -23,7 +23,10 @@ export class AddItemComponent implements OnInit {
 
     todoForm = new FormGroup({
         id: new FormControl<number | null>(null),
-        name: new FormControl<string>('', [Validators.minLength(3), Validators.required]),
+        name: new FormControl<string>('', [
+            Validators.minLength(3),
+            Validators.required,
+        ]),
         description: new FormControl<string>(''),
         priority: new FormControl<Priority>('low', [Validators.required]),
     });
@@ -50,11 +53,14 @@ export class AddItemComponent implements OnInit {
                 description: form.description,
                 priority: form.priority,
                 createdAtDate: today.toISOString(),
+                isCompleted: false,
                 completedAtDate: null,
             };
 
             const serviceRequestAction$ =
-                this.isEditForm === true ? this.todoService.update$(newTodo) : this.todoService.add$(newTodo);
+                this.isEditForm === true
+                    ? this.todoService.update$(newTodo)
+                    : this.todoService.add$(newTodo);
 
             // subscribe actie
             serviceRequestAction$
@@ -68,12 +74,17 @@ export class AddItemComponent implements OnInit {
                         console.log(todos);
                         // dit is crap
                         const msgText: string =
-                            this.isEditForm === true ? 'Is succesvol aangepast' : 'Is succesvol toegevoegd';
+                            this.isEditForm === true
+                                ? 'Is succesvol aangepast'
+                                : 'Is succesvol toegevoegd';
 
                         this.toastrService.success(msgText, `${newTodo.name}`);
                     },
                     error: (error) => {
-                        this.toastrService.error('Kon geen nieuw item aanmaken of updaten', `Er gaat iets fout`);
+                        this.toastrService.error(
+                            'Kon geen nieuw item aanmaken of updaten',
+                            `Er gaat iets fout`
+                        );
                     },
                 });
         }

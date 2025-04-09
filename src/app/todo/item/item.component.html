@@ -1,4 +1,8 @@
-<div class="card mt-3 shadow mb-5 bg-body rounded border-0 rounded">
+<div
+    class="card mt-3 shadow mb-5 bg-body rounded border-0 rounded"
+    [@fadeOut]="todoVisible ? 'visible' : 'hidden'"
+    (click)="todoVisible = !todoVisible"
+>
     <h4 class="card-header card-title bg-white">
         {{ item().id }} - {{ item().name | titlecase }}
     </h4>
@@ -16,7 +20,7 @@
         @if (item().isCompleted == false) {
             <tdf-button
                 [class]="'btn btn-success btn-sm'"
-                [icon]="faCheckIcon"
+                [icon]="faDoneIcon"
                 [isDisabled]="false"
                 (clickHandle)="setComplete()"
                 >Done!</tdf-button
@@ -24,16 +28,16 @@
 
             <tdf-button
                 [class]="'btn btn-primary btn-sm'"
-                [isDisabled]="false"
-                [icon]="faCheckIcon"
+                [isDisabled]="true"
+                [icon]="faEditIcon"
                 (clickHandle)="handleEditRoute()"
                 >Edit</tdf-button
             >
         }
         <tdf-button
-            [class]="'btn btn-danger btn-sm justify-self-end'"
+            [class]="'btn btn-danger btn-sm ms-auto'"
             [isDisabled]="false"
-            [icon]="faCheckIcon"
+            [icon]="faRemoveIcon"
             (clickHandle)="setRemove()"
             >Remove</tdf-button
         >

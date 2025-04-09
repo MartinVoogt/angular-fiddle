@@ -3,6 +3,10 @@
     [disabled]="isDisabled()"
     (click)="handleClickEvent($event)"
 >
-    <fa-icon [icon]="icon()!"></fa-icon>
-    <ng-content></ng-content>
+    @if (icon()) {
+        <fa-icon [icon]="icon()!"></fa-icon>
+    }
+    <span>
+        <ng-content></ng-content>
+    </span>
 </button>

@@ -5,9 +5,17 @@
         </div>
         <div class="row justify-content-center">
             <div class="col col-md-3 offset-md-3">
-                <a routerLink="/add-item" class="btn btn-primary">Toevoegen</a>
+                <tdf-button
+                    [class]="'btn btn-primary'"
+                    [isDisabled]="false"
+                    [icon]="faAddIcon"
+                    (clickHandle)="handleAddRoute()"
+                    >Toevoegen</tdf-button
+                >
             </div>
-            <div class="col col-md-3 d-flex justify-content-end align-items-center gap-3">
+            <div
+                class="col col-md-3 d-flex justify-content-end align-items-center gap-3"
+            >
                 <strong>Toon aantal</strong>
                 <div>
                     <select
@@ -27,7 +35,10 @@
                 <div class="filters p-3 rounded shadow-sm">
                     <h4 class="fw-normal">Filters</h4>
                     <div class="search">
-                        <tdf-search (searchValue)="todosBySearchValue($event)" [minLength]="4"></tdf-search>
+                        <tdf-search
+                            (searchValue)="todosBySearchValue($event)"
+                            [minLength]="4"
+                        ></tdf-search>
                     </div>
                     <div class="todo-state mt-3">
                         <tdf-select
