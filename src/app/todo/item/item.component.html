@@ -1,7 +1,6 @@
 <div
     class="card mt-3 shadow mb-5 bg-body rounded border-0 rounded"
-    [@fadeOut]="todoVisible ? 'visible' : 'hidden'"
-    (click)="todoVisible = !todoVisible"
+    [@fadeOut]="isRemoving ? 'hidden' : 'visible'"
 >
     <h4 class="card-header card-title bg-white">
         {{ item().id }} - {{ item().name | titlecase }}

@@ -27,7 +27,7 @@ import { faCheck, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class ItemComponent {
     private router = inject(Router);
-    protected todoVisible = false;
+    protected isRemoving = false;
     public readonly item = input.required<ITodo>();
     public readonly faDoneIcon = faCheck;
     public readonly faEditIcon = faPen;
@@ -43,7 +43,10 @@ export class ItemComponent {
     };
 
     setRemove = () => {
-        this.removeTodo.emit();
+        this.isRemoving = true;
+        setTimeout(() => {
+            this.removeTodo.emit();
+        });
     };
 
     handleEditRoute = () => {
