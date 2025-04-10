@@ -1,3 +1,4 @@
+<tdf-title>Todolist met {{ count() }} todos</tdf-title>
 <section class="todolist">
     <div class="container">
         <div class="row justify-content-center mb-4">
@@ -13,20 +14,14 @@
                     >Toevoegen</tdf-button
                 >
             </div>
-            <div
-                class="col col-md-3 d-flex justify-content-end align-items-center gap-3"
-            >
+            <div class="col col-md-3 d-flex justify-content-end align-items-center gap-3">
                 <strong>Toon aantal</strong>
                 <div>
-                    <select
-                        class="form-select d-inline-block"
-                        aria-label="Toon aantal resultaten"
-                        (change)="limitChange($event)"
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="30">30</option>
-                    </select>
+                    <tdf-select
+                        [class]="'form-select d-inline-block'"
+                        [options]="limitOptions"
+                        (selectedValue)="limitChange($event)"
+                    ></tdf-select>
                 </div>
             </div>
         </div>
@@ -51,7 +46,7 @@
             </div>
             <div class="col col-md-6">
                 <section>
-                    @for (item of list(); track $index) {
+                    @for (item of list(); track item.id) {
                         <tdf-todo-item
                             [item]="item"
                             (removeTodo)="deleteTodo(item)"

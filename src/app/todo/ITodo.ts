@@ -19,7 +19,7 @@ export type Priority = 'low' | 'high';
 
 // deze verplaatsen
 export interface IOption {
-    label: string;
+    label: string | number;
     value: string | number;
     selected?: boolean;
 }

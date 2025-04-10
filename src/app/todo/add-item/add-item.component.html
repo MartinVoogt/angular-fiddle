@@ -1,3 +1,10 @@
+<tdf-title>
+    @if (todo()) {
+        Bewerken
+    } @else {
+        Toevoegen
+    }
+</tdf-title>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col col-lg-6">
@@ -5,13 +12,18 @@
                 <div class="col mx-4 mt-3">
                     <h3 class="text-muted">
                         @if (todo()) {
-                            Aanpassen: {{ todo()?.name }}
+                            Bewerken: {{ todo()?.name }}
                         } @else {
-                            Nieuwe item toevoegen
+                            Nieuw item toevoegen
                         }
                     </h3>
                 </div>
-                <form class="needs-validation" [formGroup]="todoForm" (ngSubmit)="onSubmit()" novalidate>
+                <form
+                    class="needs-validation"
+                    [formGroup]="todoForm"
+                    (ngSubmit)="onSubmit()"
+                    novalidate
+                >
                     <div class="col m-4" invalid>
                         <label for="name">Naam</label>
                         <input
@@ -21,10 +33,17 @@
                             [formControl]="todoForm.controls.name"
                             placeholder="Naam van todo"
                         />
-                        @if (todoForm.controls.name.touched && todoForm.controls.name.invalid) {
-                            <div class="invalid-feedback d-block">Vul een naam in van minimaal 3 tekens</div>
+                        @if (
+                            todoForm.controls.name.touched &&
+                            todoForm.controls.name.invalid
+                        ) {
+                            <div class="invalid-feedback d-block">
+                                Vul een naam in van minimaal 3 tekens
+                            </div>
                         }
-                        @if (todoForm.controls.name.touched && todoForm.controls.name.valid) {
+                        @if (
+                            todoForm.controls.name.touched && todoForm.controls.name.valid
+                        ) {
                             <div class="valid-feedback d-block">Done</div>
                         }
                     </div>
@@ -48,13 +67,26 @@
                             <option value="low">Laag</option>
                             <option value="high">Hoog</option>
                         </select>
-                        @if (todoForm.controls.priority.touched && todoForm.controls.priority.invalid) {
-                            <div class="invalid-feedback d-block">Selecteer een prioriteit</div>
+                        @if (
+                            todoForm.controls.priority.touched &&
+                            todoForm.controls.priority.invalid
+                        ) {
+                            <div class="invalid-feedback d-block">
+                                Selecteer een prioriteit
+                            </div>
                         }
                     </div>
-                    <div class="col m-4 d-flex align-items-center justify-content-between">
+                    <div
+                        class="col m-4 d-flex align-items-center justify-content-between"
+                    >
                         <a [routerLink]="['/']" class="me-4">Annuleren</a>
-                        <button type="submit" [disabled]="!todoForm.valid" class="btn btn-primary">Opslaan</button>
+                        <button
+                            type="submit"
+                            [disabled]="!todoForm.valid"
+                            class="btn btn-primary"
+                        >
+                            Opslaan
+                        </button>
                     </div>
                 </form>
             </div>

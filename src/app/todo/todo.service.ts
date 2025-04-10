@@ -9,7 +9,10 @@ import { setSort } from './utils/sort';
 })
 export class TodoService {
     private httpClient = inject(HttpClient);
-    private setPriorityValue = (todo: ITodo): ITodo => ({ ...todo, priority: todo.hasPriority ? 'high' : 'low' });
+    private setPriorityValue = (todo: ITodo): ITodo => ({
+        ...todo,
+        priority: todo.hasPriority ? 'high' : 'low',
+    });
 
     public todos = signal<ITodo[]>([]);
 
@@ -24,20 +27,19 @@ export class TodoService {
         return this.todos().length;
     });
 
-    getAll$ = (): Observable<ITodo[]> => {
-        return this.httpClient.get<ITodo[]>('/api/todos').pipe(
-            map((todos) => todos.map(this.setPriorityValue)),
-            map((todos) => todos.sort(setSort)) // naar utils
-        );
-    };
-
-    find = (term: string) => {
+    find = (term: string): ITodo[] => {
         let pattern = new RegExp(`(${term})`);
         let filtered = this.todos().filter((todo) => pattern.test(todo.name));
         return filtered;
     };
 
-    //
+    getAll$ = (): Observable<ITodo[]> => {
+        return this.httpClient.get<ITodo[]>('/api/todos').pipe(
+            map((todos) => todos.map(this.setPriorityValue)),
+            map((todos) => todos.sort(setSort))
+        );
+    };
+
     add$ = (todo: ITodo): Observable<ITodo[]> => {
         return this.httpClient.post<ITodo>('/api/todos', todo).pipe(
             switchMap(() => this.getAll$()),
@@ -58,9 +60,10 @@ export class TodoService {
 
     // letop return types
     // subscribe in component
-    remove$ = (todo: ITodo): Observable<ITodo[]> =>
-        this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`).pipe(
+    remove$ = (todo: ITodo): Observable<ITodo[]> => {
+        return this.httpClient.delete<ITodo[]>(`/api/todos/${todo.id}`).pipe(
             switchMap(() => this.getAll$()),
             tap((todos) => this.todos.set(todos))
         );
+    };
 }

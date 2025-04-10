@@ -1,7 +1,6 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
-import { ButtonComponent } from './shared/button/button.component';
 
 import { TodoService } from './todo/todo.service';
 

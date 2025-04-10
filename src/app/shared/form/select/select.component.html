@@ -3,7 +3,7 @@
 }
 <select
     id="todo-view"
-    class="form-select"
+    [class]="class()"
     (change)="changeEvent($event)"
     [attr.aria-label]="label()"
 >

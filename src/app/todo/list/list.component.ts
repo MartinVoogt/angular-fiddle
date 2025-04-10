@@ -1,48 +1,65 @@
 import { Component, inject, Signal, signal, computed } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
-import { ITodo, IOption } from '../ITodo';
+import { ITodo, IOption, Priority } from '../ITodo';
 import { ToastrService } from 'ngx-toastr';
 import { SearchComponent } from '../search/search.component';
 import { SelectComponent } from '../../shared/form/select/select.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { LIMIT_OPTIONS, FILTER_OPTIONS, PRIORITY_MAP } from '../todo.constants';
+import { TitleComponent } from '../../shared/text/title/title.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'tdf-todo-ist',
-    imports: [ItemComponent, SearchComponent, SelectComponent, ButtonComponent],
+    imports: [
+        ItemComponent,
+        SearchComponent,
+        SelectComponent,
+        ButtonComponent,
+        TitleComponent,
+    ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })
 export class ListComponent {
     private router = inject(Router);
+    private activatedRoute = inject(ActivatedRoute);
     private todoService = inject(TodoService);
     private limit = signal<number>(5);
     private toastr = inject(ToastrService);
     private search = signal<string>(''); // search value
     private filterState = signal<IOption>({ label: '', value: '' }); // hmm ...
-    private allTodos: Signal<ITodo[]> = this.todoService.todos ?? signal([]);
-
+    public filterOptions = FILTER_OPTIONS;
+    public limitOptions = LIMIT_OPTIONS;
     public faAddIcon = faPlus;
-    // misschien eerder een const van maken, in een andere file?
-    public filterOptions: Array<IOption> = [
-        { label: 'Alle todos', value: '', selected: true },
-        { label: 'Open todos', value: 'open' },
-        { label: 'Afgeronde todos', value: 'completed' },
-    ];
 
+    public priorityParam = toSignal(
+        this.activatedRoute.params.pipe(map((params) => params['priority'])),
+        { initialValue: '' }
+    );
+
+    public count = computed(() => {
+        return this.todoService.todos().length;
+    });
     // list with filtered content
     public list = computed(() => {
         const searchTerm = this.search().toLowerCase();
         const limitVal = this.limit();
         const state = this.filterState();
+        const priority = this.priorityParam();
+        const normalizedPriority: Priority = PRIORITY_MAP[priority];
 
-        const searchFiltered = this.allTodos().filter(
-            (todo) =>
-                todo.name.toLowerCase().includes(searchTerm) ||
-                todo.description.toLowerCase().includes(searchTerm)
-        );
+        const searchFiltered = this.todoService
+            .todos()
+            .filter(
+                (todo) =>
+                    todo.name.toLowerCase().includes(searchTerm) ||
+                    todo.description.toLowerCase().includes(searchTerm)
+            );
 
         const filteredByState =
             state.value !== ''
@@ -53,7 +70,11 @@ export class ListComponent {
                   })
                 : searchFiltered;
 
-        return filteredByState.slice(0, limitVal);
+        const filteredByPriority = normalizedPriority
+            ? filteredByState.filter((todo) => todo.priority === normalizedPriority)
+            : filteredByState;
+
+        return filteredByPriority.slice(0, limitVal);
     });
 
     handleAddRoute() {
@@ -68,26 +89,25 @@ export class ListComponent {
         this.filterState.set(option);
     }
 
-    limitChange(event: any) {
-        let value: number = event.currentTarget.value;
+    limitChange(option: IOption) {
+        let value = option.value as number;
         this.limit.set(value);
     }
 
     deleteTodo(todo: ITodo) {
-        this.todoService.remove$(todo).subscribe(() => {
-            this.toastr.success(
-                'Is succesvol verwijderd',
-                `${todo.id} - ${todo.name}`
-            );
+        this.todoService.remove$(todo).subscribe({
+            next: (value) => {
+                this.toastr.success(
+                    'Is succesvol verwijderd',
+                    `${todo.id} - ${todo.name}`
+                );
+            },
         });
     }
 
     updateTodo(todo: ITodo) {
         this.todoService.update$(todo).subscribe(() => {
-            this.toastr.success(
-                'Is succesvol geupdate',
-                `${todo.id} - ${todo.name}`
-            );
+            this.toastr.success('Is succesvol geupdate', `${todo.id} - ${todo.name}`);
         });
     }
 }

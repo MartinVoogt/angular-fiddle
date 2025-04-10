@@ -6,10 +6,11 @@ import { ITodo, Priority } from '../ITodo';
 import { TodoService } from '../todo.service';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs';
+import { TitleComponent } from '../../shared/text/title/title.component';
 
 @Component({
     selector: 'tdf-add-item',
-    imports: [FormsModule, ReactiveFormsModule, RouterLink],
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, TitleComponent],
     templateUrl: './add-item.component.html',
     styleUrl: './add-item.component.scss',
 })
@@ -23,10 +24,7 @@ export class AddItemComponent implements OnInit {
 
     todoForm = new FormGroup({
         id: new FormControl<number | null>(null),
-        name: new FormControl<string>('', [
-            Validators.minLength(3),
-            Validators.required,
-        ]),
+        name: new FormControl<string>('', [Validators.minLength(3), Validators.required]),
         description: new FormControl<string>(''),
         priority: new FormControl<Priority>('low', [Validators.required]),
     });
