@@ -4,7 +4,12 @@ import { ListComponent as participantsListComponent } from './participants/list/
 import { AddItemComponent } from './todo/add-item/add-item.component';
 
 export const routes: Routes = [
-    { path: '', component: ListComponent, title: 'TodoList overview' },
+    //{ path: '', component: ListComponent, title: 'TodoList overview' },
+    {
+        path: '',
+        component: participantsListComponent,
+        title: 'Deelnemer lijst',
+    },
     {
         path: 'prioriteit/:priority',
         component: ListComponent,

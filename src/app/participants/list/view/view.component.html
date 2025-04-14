@@ -1,4 +1,20 @@
-<!-- @for (participant of participants(); track participant.id) {
-    <h2>{{ participant().name }}</h2>
-}
- -->
+<div class="row">
+    @for (participant of participants(); track $index) {
+        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ participant.nameFirst }} {{ participant.nameMiddle }}
+                        {{ participant.nameLast }}
+                    </h5>
+                    <div class="d-flex gap-3">
+                        <div>Leeftijd</div>
+                        <div>{{ participant.age }}</div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary btn-sm">Uitnodigen</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

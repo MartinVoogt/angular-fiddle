@@ -1,9 +1,6 @@
 import { Component, input, output } from '@angular/core';
 
-import {
-    FontAwesomeModule,
-    IconDefinition,
-} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'tdf-button',
@@ -12,9 +9,10 @@ import {
     styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-    public readonly class = input<string>();
+    public readonly class = input<string>(); // wijzigen naar buttonStyle wellichjt
     public readonly isDisabled = input<boolean>(false);
-    public icon = input<IconDefinition | undefined>();
+    public readonly type = input<string>('button');
+    public readonly icon = input<IconDefinition>();
 
     public clickHandle = output<void>();
 

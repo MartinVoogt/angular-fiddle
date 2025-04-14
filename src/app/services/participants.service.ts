@@ -1,27 +1,35 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IParticipant } from '../participants/models/IParticipant';
-import { Observable } from 'rxjs';
-
+import { IParticipant } from '../participants/types/participant.types';
+import { catchError, map, Observable, of, take } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ageInYears } from '../shared/utils/date-time';
 @Injectable({
     providedIn: 'root',
 })
 export class ParticipantsService {
-    public allParticipants = signal<IParticipant[]>([]);
-    public httpClient = inject(HttpClient);
+    private url = '/api/participants';
 
-    public participants = computed(() => {
-        return this.allParticipants();
-    });
+    private readonly http = inject(HttpClient);
 
-    constructor() {}
-
-    list$() {
-        return this.httpClient
-            .get<IParticipant[]>('/api/participants')
-            .subscribe((values) => {
-                console.log(values);
-                this.allParticipants.set(values);
-            });
-    }
+    public allParticipants = toSignal(
+        this.http.get<IParticipant[]>(this.url).pipe(
+            map(ageOfParticipants),
+            catchError((err) => {
+                console.error(err);
+                return of([]);
+            })
+        ),
+        {
+            initialValue: [],
+        }
+    );
 }
+
+const ageOfParticipants = (participants: IParticipant[]): IParticipant[] => {
+    return participants.map((participant) => {
+        const birthDate = new Date(participant.birthDate);
+        participant.age = ageInYears(birthDate);
+        return participant;
+    });
+};

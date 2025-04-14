@@ -3,10 +3,12 @@
 <div class="container">
     <div class="row g-3 justify-content-center">
         <div class="col col-md-3">
-            <tdf-participants-filter></tdf-participants-filter>
+            <tdf-participants-filter [(filters)]="filters"></tdf-participants-filter>
         </div>
-        <div class="col col-md-6">
-            <tdf-participants-view></tdf-participants-view>
+        <div class="col col-md-8">
+            <tdf-participants-view
+                [participants]="participants()"
+            ></tdf-participants-view>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
-import { Component, signal, input } from '@angular/core';
+import { Component, signal, input, Signal } from '@angular/core';
+import { IParticipant } from '../../types/participant.types';
 
 @Component({
     selector: 'tdf-participants-view',
@@ -7,5 +8,7 @@ import { Component, signal, input } from '@angular/core';
     styleUrl: './view.component.scss',
 })
 export class ViewComponent {
-    public participants = input();
+    public participants = input<IParticipant[]>();
+
+    // pipe maken voor birtdays / leeftijd
 }

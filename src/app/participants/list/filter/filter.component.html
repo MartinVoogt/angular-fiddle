@@ -1,5 +1,9 @@
-<p>filter works!</p>
-<div class="input-group mb-3">
-	<span class="input-group-text" id="basic-addon1"><fa-icon [icon]="icon"></fa-icon></span>
-	<input type="text" class="form-control" id="search" placeholder="Zoekterm">
+<div class="filters">
+    <tdf-filter-account-active [(filters)]="filters"></tdf-filter-account-active>
+</div>
+
+<div class="col-12 mb-3">
+    <tdf-button [class]="'btn btn-primary'" [icon]="filterIcon" [isDisabled]="false">
+        Filter selectie
+    </tdf-button>
 </div>

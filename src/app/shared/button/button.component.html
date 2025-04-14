@@ -1,4 +1,5 @@
 <button
+    [attr.type]="type() || undefined"
     [class]="`${class()}`"
     [disabled]="isDisabled()"
     (click)="handleClickEvent($event)"
