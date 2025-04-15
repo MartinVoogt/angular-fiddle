@@ -7,7 +7,7 @@ export interface IParticipant {
     nameLast: string;
     city: string;
     email: string;
-    gender: string;
+    gender: GenderType;
     birthDate: string;
     age: number | null;
 }
@@ -15,4 +15,7 @@ export interface IParticipant {
 type FilterKey = keyof IParticipant;
 type FilterValue = IParticipant[FilterKey];
 
+//export type FilterType = Partial<Record<FilterKey, FilterValue[]>>;
 export type FilterType = Partial<Record<FilterKey, FilterValue[]>>;
+
+export type GenderType = 'male' | 'female';

@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { FilterType } from '../../../../types/participant.types';
 
 @Component({
@@ -7,9 +7,13 @@ import { FilterType } from '../../../../types/participant.types';
     templateUrl: './account-active.component.html',
 })
 export class AccountActiveComponent {
-    public filters = model<FilterType[]>([]);
+    public filters = model<FilterType>({});
 
     onChange(event: Event) {
-        console.log(event);
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+        this.filters.update((current) => {
+            return { ...current, id: [input.value] };
+        });
     }
 }

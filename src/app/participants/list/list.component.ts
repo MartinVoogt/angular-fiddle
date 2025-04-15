@@ -22,9 +22,9 @@ export class ListComponent {
 
     public participants = computed(() => {
         // hier nog meer logica toevoegen
-
+        console.log(this.allParticipants());
         return this.allParticipants();
     });
 
-    public filters = signal<FilterType[]>([]);
+    public filters = model<FilterType>({});
 }

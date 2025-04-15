@@ -17,7 +17,7 @@ export type Priority = 'low' | 'high';
 // Type that represents only one of the values from the PRIORITIES object
 //type PriorityType = (typeof PRIORITIES)[keyof typeof PRIORITIES];
 
-// deze verplaatsen
+// TODO deze verplaatsen naar shared interface?
 export interface IOption {
     label: string | number;
     value: string | number;
