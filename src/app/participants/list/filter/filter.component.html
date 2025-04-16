@@ -1,15 +1,17 @@
 <div class="filters">
-    <tdf-filter-account-active [(filters)]="filters"></tdf-filter-account-active>
-    <tdf-filter-gender [(filters)]="filters"></tdf-filter-gender>
-
-    <div class="col-12 mb-3">
-        <tdf-button
-            [class]="'btn btn-primary'"
-            [icon]="filterIcon"
-            [isDisabled]="false"
-            (clickHandle)="onSubmit()"
+    <h3>Filters</h3>
+    <div class="mb-3">
+        <tdf-filter-gender [(filters)]="filters"></tdf-filter-gender>
+    </div>
+    <div class="mb-3">
+        <tdf-filter-account-active [(filters)]="filters"
+            >Is actief</tdf-filter-account-active
         >
-            Filter selectie
-        </tdf-button>
+    </div>
+
+    <div class="mb-3">
+        <pre>
+            {{ this.filters() | json }}
+        </pre>
     </div>
 </div>

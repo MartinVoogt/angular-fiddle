@@ -2,7 +2,8 @@ import { Component, inject, Signal, signal, computed } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { ItemComponent } from '../item/item.component';
-import { ITodo, IOption, Priority } from '../ITodo';
+import { ITodo, Priority } from '../ITodo';
+import { IOption } from '../../shared/types/shared.type';
 import { ToastrService } from 'ngx-toastr';
 import { SearchComponent } from '../search/search.component';
 import { SelectComponent } from '../../shared/form/select/select.component';
@@ -28,7 +29,7 @@ import { map } from 'rxjs';
 export class ListComponent {
     private router = inject(Router);
     private activatedRoute = inject(ActivatedRoute);
-    private todoService = inject(TodoService); 
+    private todoService = inject(TodoService);
     private limit = signal<number>(5);
     private toastr = inject(ToastrService);
     private search = signal<string>(''); // search value

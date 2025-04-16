@@ -8,7 +8,7 @@ import { IParticipant } from '../../types/participant.types';
     styleUrl: './view.component.scss',
 })
 export class ViewComponent {
-    public participants = input<IParticipant[]>();
+    public participants = input<IParticipant[]>([]);
 
     // pipe maken voor birtdays / leeftijd
 }

@@ -1,4 +1,4 @@
-import { IOption } from './ITodo';
+import { IOption } from '../shared/types/shared.type';
 
 export const FILTER_OPTIONS: Array<IOption> = [
     { label: 'Alle todos', value: '', selected: true },

@@ -11,9 +11,9 @@ export class AccountActiveComponent {
 
     onChange(event: Event) {
         const input = event.target as HTMLInputElement;
-        const value = input.value;
+        const value = input.checked ? true : false;
         this.filters.update((current) => {
-            return { ...current, id: [input.value] };
+            return { ...current, isActive: value };
         });
     }
 }

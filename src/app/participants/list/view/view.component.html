@@ -1,5 +1,5 @@
 <div class="row">
-    @for (participant of participants(); track $index) {
+    @for (participant of participants(); track participant.id) {
         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
             <div class="card">
                 <div class="card-body">
@@ -11,8 +11,10 @@
                         <div>Leeftijd</div>
                         <div>{{ participant.age }}</div>
                     </div>
-
-                    <a href="#" class="btn btn-primary btn-sm">Uitnodigen</a>
+                    <div class="d-flex gap-3">
+                        <div>Geslacht</div>
+                        <div>{{ participant.gender }}</div>
+                    </div>
                 </div>
             </div>
         </div>

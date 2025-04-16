@@ -3,11 +3,8 @@ import { TitleComponent } from '../../shared/text/title/title.component';
 import { ViewComponent } from './view/view.component';
 import { FilterComponent } from './filter/filter.component';
 import { ParticipantsService } from '../../services/participants.service';
-import { IParticipant } from '../types/participant.types';
-
-type FilterKey = keyof IParticipant;
-type FilterValue = IParticipant[FilterKey];
-type FilterType = Partial<Record<FilterKey, FilterValue[]>>;
+import { ParticipantsFilters } from '../../services/participants-filter.service';
+import { IParticipant, FilterType } from '../types/participant.types';
 
 @Component({
     selector: 'tdf-list',
@@ -17,14 +14,29 @@ type FilterType = Partial<Record<FilterKey, FilterValue[]>>;
 })
 export class ListComponent {
     private participantsService = inject(ParticipantsService);
-
     public allParticipants = this.participantsService.allParticipants;
+    public filters = model<FilterType>({});
 
     public participants = computed(() => {
-        // hier nog meer logica toevoegen
-        console.log(this.allParticipants());
-        return this.allParticipants();
-    });
+        let filteredParticipants = this.allParticipants();
 
-    public filters = model<FilterType>({});
+        const genderFilterValue = this.filters().gender;
+        if (typeof genderFilterValue === 'string' && genderFilterValue !== 'both')
+            filteredParticipants = ParticipantsFilters.gender(
+                filteredParticipants,
+                genderFilterValue
+            );
+
+        const isActiveFilterValue = this.filters().isActive;
+        if (typeof isActiveFilterValue === 'boolean') {
+            filteredParticipants = ParticipantsFilters.isActive(
+                filteredParticipants,
+                isActiveFilterValue
+            );
+        }
+
+        filteredParticipants = ParticipantsFilters.sortByAge(filteredParticipants, 'ASC');
+
+        return filteredParticipants;
+    });
 }

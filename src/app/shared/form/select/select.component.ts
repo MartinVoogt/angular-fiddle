@@ -1,5 +1,5 @@
 import { Component, input, OnInit, output } from '@angular/core';
-import { IOption } from '../../../todo/ITodo';
+import { IOption } from '../../types/shared.type';
 
 @Component({
     selector: 'tdf-select',
