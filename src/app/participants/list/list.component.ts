@@ -16,6 +16,9 @@ export class ListComponent {
     private participantsService = inject(ParticipantsService);
     public allParticipants = this.participantsService.allParticipants;
     public filters = model<FilterType>({});
+    public participantsCount = computed(() => {
+        return this.participants().length;
+    });
 
     public participants = computed(() => {
         let filteredParticipants = this.allParticipants();
@@ -36,7 +39,6 @@ export class ListComponent {
         }
 
         filteredParticipants = ParticipantsFilters.sortByAge(filteredParticipants, 'ASC');
-
         return filteredParticipants;
     });
 }

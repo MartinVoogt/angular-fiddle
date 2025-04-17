@@ -2,11 +2,11 @@ import { Component, input, model, output } from '@angular/core';
 import { FilterType } from '../../../../types/participant.types';
 
 @Component({
-    selector: 'tdf-filter-account-active',
-    styleUrls: ['account-active.components.scss'],
-    templateUrl: './account-active.component.html',
+    selector: 'tdf-filter-active',
+    styleUrls: ['active.components.scss'],
+    templateUrl: './active.component.html',
 })
-export class AccountActiveComponent {
+export class ActiveComponent {
     public filters = model<FilterType>({});
 
     onChange(event: Event) {

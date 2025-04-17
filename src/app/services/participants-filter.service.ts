@@ -16,7 +16,10 @@ export class ParticipantsFilters {
         direction: 'ASC' | 'DESC'
     ): IParticipant[] {
         return participants.sort((a: IParticipant, b: IParticipant) => {
-            if (a.age && b.age) return a.age > b.age ? 1 : -1;
+            if (a.age && b.age) {
+                if (a.age > b.age) return 1;
+                if (a.age < b.age) return -1;
+            }
             return 0;
         });
     }
