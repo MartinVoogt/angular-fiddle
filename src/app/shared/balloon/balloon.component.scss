@@ -1,0 +1,18 @@
+span.balloon {
+	position: relative;
+	span {
+		top: 0; 
+		left: 0; 
+		position: absolute;
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--bs-blue);
+		color: white;
+		font-weight: 700;
+		font-size: 12px;
+		border-radius: 50%;
+	}
+}

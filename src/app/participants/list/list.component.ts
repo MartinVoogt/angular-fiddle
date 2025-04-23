@@ -5,10 +5,11 @@ import { FilterComponent } from './filter/filter.component';
 import { ParticipantsService } from '../../services/participants.service';
 import { ParticipantsFilters } from '../../services/participants-filter.service';
 import { IParticipant, FilterType } from '../types/participant.types';
+import { BalloonComponent } from '../../shared/balloon/balloon.component';
 
 @Component({
     selector: 'tdf-list',
-    imports: [TitleComponent, ViewComponent, FilterComponent],
+    imports: [TitleComponent, ViewComponent, FilterComponent, BalloonComponent],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
 })

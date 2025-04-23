@@ -28,3 +28,23 @@ export const fadeOutTransition = animation(
     ],
     { params: { duration: '400ms' } }
 );
+
+export const popInOut = animation(
+    [
+        animate(
+            '{{ duration }} ease-in',
+            keyframes([
+                style({ transform: 'scale({{ start }})' }),
+                style({ transform: 'scale(.2)' }),
+                style({ transform: 'scale({{ end }})' }),
+            ])
+        ),
+    ],
+    {
+        params: {
+            duration: '.4s',
+            start: '0',
+            end: '1',
+        },
+    }
+);
