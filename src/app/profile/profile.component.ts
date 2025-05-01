@@ -6,6 +6,7 @@ import {
     FormGroup,
     ReactiveFormsModule,
     RequiredValidator,
+    Validators,
 } from '@angular/forms';
 
 @Component({
@@ -19,9 +20,9 @@ export class ProfileComponent implements OnInit {
     private session = this.supabaseService.session;
 
     profileForm = new FormGroup({
-        email: new FormControl(''),
-        website: new FormControl(''),
-        fullname: new FormControl(''),
+        email: new FormControl<string | null>('', [Validators.required]),
+        website: new FormControl<string | null>(''),
+        fullname: new FormControl<string | null>(''),
     });
 
     ngOnInit() {
@@ -33,7 +34,7 @@ export class ProfileComponent implements OnInit {
 
     onSubmit() {
         if (this.profileForm.valid) {
-            //
+            // update
         }
     }
 }
