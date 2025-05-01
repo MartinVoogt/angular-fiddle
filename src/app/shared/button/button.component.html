@@ -1,6 +1,6 @@
 <button
     [attr.type]="type() || undefined"
-    [class]="`${class()}`"
+    [class]="`${buttonClass()}`"
     [disabled]="isDisabled()"
     (click)="handleClickEvent($event)"
 >

@@ -18,7 +18,7 @@
     <div class="card-footer d-flex gap-3 bg-white">
         @if (item().isCompleted == false) {
             <tdf-button
-                [class]="'btn btn-success btn-sm'"
+                buttonClass="btn btn-success btn-sm"
                 [icon]="faDoneIcon"
                 [isDisabled]="false"
                 (clickHandle)="setComplete()"
@@ -26,7 +26,7 @@
             >
 
             <tdf-button
-                [class]="'btn btn-primary btn-sm'"
+                buttonClass="btn btn-primary btn-sm"
                 [isDisabled]="false"
                 [icon]="faEditIcon"
                 (clickHandle)="handleEditRoute()"
@@ -34,7 +34,7 @@
             >
         }
         <tdf-button
-            [class]="'btn btn-danger btn-sm ms-auto'"
+            buttonClass="btn btn-danger btn-sm ms-auto"
             [isDisabled]="false"
             [icon]="faRemoveIcon"
             (clickHandle)="setRemove()"

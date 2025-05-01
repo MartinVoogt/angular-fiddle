@@ -9,7 +9,7 @@ import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawes
     styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-    public readonly class = input<string>(); // wijzigen naar buttonStyle wellichjt
+    public readonly buttonClass = input<string>(); // wijzigen naar buttonStyle wellicht
     public readonly isDisabled = input<boolean>(false);
     public readonly type = input<string>('button');
     public readonly icon = input<IconDefinition>();

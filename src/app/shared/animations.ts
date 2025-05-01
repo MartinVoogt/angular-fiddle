@@ -1,4 +1,13 @@
-import { animate, animation, keyframes, style } from '@angular/animations';
+import {
+    animate,
+    animation,
+    AnimationTriggerMetadata,
+    keyframes,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
+import { Mode } from './types/mode.type';
 
 // fade.animation.ts
 export const fadeInTransition = animation(
@@ -29,7 +38,7 @@ export const fadeOutTransition = animation(
     { params: { duration: '400ms' } }
 );
 
-export const popInOut = animation(
+export const popInOutv2 = animation(
     [
         animate(
             '{{ duration }} ease-in',
@@ -48,3 +57,32 @@ export const popInOut = animation(
         },
     }
 );
+
+const getPopTransform = (mode: Mode): { start: string; end: string } => {
+    switch (mode) {
+        case 'In':
+            return { start: 'scale(0)', end: 'scale(1)' };
+        case 'Out':
+            return { start: 'scale(1)', end: 'scale(0)' };
+        default:
+            return { start: 'scale(0)', end: 'scale(1)' };
+    }
+};
+
+export const popInOut = (
+    mode: Mode,
+    speed: `${number}ms` = '250ms'
+): AnimationTriggerMetadata => {
+    const { start, end } = getPopTransform(mode);
+
+    return trigger('popInOut', [
+        transition(':enter', [
+            style({ transform: start }),
+            animate(`${speed} ease-in`, style({ transform: end })),
+        ]),
+        transition(':leave', [
+            style({ transform: end }),
+            animate(`${speed} ease-in`, style({ transform: start })),
+        ]),
+    ]);
+};

@@ -1,0 +1,48 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submitHandle()">
+        <div class="row justify-content-center my-4" formGroupName="credentials">
+            <div class="col col-md-6">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3">
+                        <label for="username" class="col-form-label"
+                            >Gebruikersnaam</label
+                        >
+                    </div>
+                    <div class="col-auto">
+                        <input
+                            formControlName="email"
+                            type="text"
+                            id="email"
+                            class="form-control"
+                            aria-describedby="emailHelp"
+                        />
+                    </div>
+                    <div class="col-auto">
+                        <span id="emailHelp" class="form-text"
+                            >Vul een geldig emailadres in</span
+                        >
+                    </div>
+
+                    @if (
+                        form.get('credentials.email')?.dirty &&
+                        form.get('credentials.email')?.hasError('required')
+                    ) {
+                        <div class="invalid-feedback d-block">
+                            Email veld is verplicht
+                        </div>
+                    }
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3 col-offset-3">
+                        <tdf-button
+                            [type]="'submit'"
+                            [buttonClass]="'btn btn-primary'"
+                            [isDisabled]="form.invalid"
+                            >Inloggen</tdf-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

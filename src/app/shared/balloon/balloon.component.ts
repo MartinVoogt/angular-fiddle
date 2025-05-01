@@ -1,5 +1,5 @@
 import { state, style, transition, trigger, useAnimation } from '@angular/animations';
-import { Component, input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, computed, input, InputSignal, signal } from '@angular/core';
 import { popInOut } from '../animations';
 
 @Component({
@@ -7,40 +7,20 @@ import { popInOut } from '../animations';
     imports: [],
     template: `
         <span class="balloon">
-            <span [@updateAnimation]="animationFade">{{ value() }}</span>
+            <span [@popInOut]="popAnimate()">{{ value() }}</span>
         </span>
     `,
     styleUrl: './balloon.component.scss',
-    animations: [
-        trigger('updateAnimation', [
-            state('start', style({ transform: 'scale(0)' })),
-            state('end', style({ transform: 'scale(1)' })),
-            transition('start => end', [
-                useAnimation(popInOut, {
-                    params: { duration: '.3s', start: '0', end: '1' },
-                }),
-            ]),
-            transition('end => start', [
-                useAnimation(popInOut, {
-                    params: { duration: '.3s', start: '1', end: '0' },
-                }),
-            ]),
-        ]),
-    ],
+    animations: [popInOut('In')],
 })
-export class BalloonComponent implements OnChanges {
+export class BalloonComponent {
     public animationFade = '';
-    public value = input.required();
+    public value: InputSignal<number> = input.required();
+    public initialValue = 0;
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes) {
-            this.animationFade = 'end';
-            requestAnimationFrame(() => {
-                this.animationFade = 'start';
-                requestAnimationFrame(() => {
-                    this.animationFade = 'end';
-                });
-            });
-        }
-    }
+    public popAnimate = computed(() => {
+        const animate = this.initialValue !== this.value();
+        this.initialValue = this.value();
+        return animate;
+    });
 }
