@@ -14,13 +14,7 @@ import {
 import { SupabaseService } from './services/supabase.service';
 import { JsonPipe } from '@angular/common';
 
-const imports = [
-    RouterOutlet,
-    NavigationComponent,
-    AdminModule,
-    ButtonComponent,
-    JsonPipe,
-];
+const imports = [RouterOutlet, NavigationComponent, AdminModule, ButtonComponent];
 
 @Component({
     selector: 'tdf-root',

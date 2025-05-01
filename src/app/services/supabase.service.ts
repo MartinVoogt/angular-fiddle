@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 
 export interface Profile {
     id?: string;
-    username: string;
+    fullname: string;
     website: string;
     avatar_url: string;
 }

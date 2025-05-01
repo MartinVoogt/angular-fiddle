@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
 
     profileForm = new FormGroup({
         email: new FormControl(''),
-        phone: new FormControl(''),
+        website: new FormControl(''),
+        fullname: new FormControl(''),
     });
 
     ngOnInit() {
