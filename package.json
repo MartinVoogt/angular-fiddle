@@ -36,6 +36,7 @@
         "@angular/cli": "^19.2.0",
         "@angular/compiler-cli": "^19.2.0",
         "@faker-js/faker": "^9.6.0",
+        "@ngx-env/builder": "^19.0.4",
         "@types/jasmine": "~5.1.0",
         "angular-in-memory-web-api": "^0.19.0",
         "faker": "^6.6.6",

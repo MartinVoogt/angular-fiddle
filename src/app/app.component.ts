@@ -23,6 +23,8 @@ const imports = [RouterOutlet, NavigationComponent, AdminModule, ButtonComponent
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+    url = import.meta.env['NG_APP_SUPABASE_URL'];
+
     private todoService = inject(TodoService);
     private supabaseService = inject(SupabaseService);
     session = this.supabaseService.session;
