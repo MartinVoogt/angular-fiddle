@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
 
     onSubmit() {
         if (this.profileForm.valid) {
-            // update
+            // TODO dit werkend maken.
         }
     }
 }
