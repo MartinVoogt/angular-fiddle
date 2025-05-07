@@ -23,12 +23,11 @@ const imports = [RouterOutlet, NavigationComponent, AdminModule, ButtonComponent
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-    url = import.meta.env['NG_APP_SUPABASE_URL'];
-
     private todoService = inject(TodoService);
     private supabaseService = inject(SupabaseService);
-    session = this.supabaseService.session;
-    router = inject(Router);
+    private router = inject(Router);
+    private session = this.supabaseService.session;
+
     count: Signal<Number> = this.todoService.getCount;
     loginIcon: IconDefinition = faUserLock;
     userIcon: IconDefinition = faUser;

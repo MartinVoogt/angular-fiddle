@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { SupabaseService } from '../services/supabase.service';
+import { SupabaseService, Profile } from '../services/supabase.service';
 import { AuthSession, User } from '@supabase/supabase-js';
 import {
     FormControl,
@@ -22,7 +22,10 @@ export class ProfileComponent implements OnInit {
     profileForm = new FormGroup({
         email: new FormControl<string | null>('', [Validators.required]),
         website: new FormControl<string | null>(''),
-        fullname: new FormControl<string | null>(''),
+        fullname: new FormControl<string | null>('', [
+            Validators.required,
+            Validators.minLength(3),
+        ]),
     });
 
     ngOnInit() {
@@ -34,7 +37,24 @@ export class ProfileComponent implements OnInit {
 
     onSubmit() {
         if (this.profileForm.valid) {
-            // TODO dit werkend maken.
+            const fullname = this.profileForm.controls.fullname.value as string;
+            const website = this.profileForm.controls.website.value as string;
+
+            const update: Profile = {
+                id: this.session?.user.id,
+                fullname,
+                website,
+                avatar_url: '',
+            };
+        }
+    }
+
+    // TODO Dit werkend maken
+    async updateProfile(update: Profile) {
+        try {
+            const { error } = await this.supabaseService.updateProfile(update);
+        } catch {
+        } finally {
         }
     }
 }
