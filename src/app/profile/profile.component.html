@@ -2,6 +2,10 @@
     <div class="row">
         <div class="col col-md-6">
             <div class="row">
+                <tdf-avatar [avatarUrl]="this.avatarUrl" (upload)="updateAvatar($event)">
+                </tdf-avatar>
+            </div>
+            <div class="row">
                 <div class="col col-md-3"><label for="email">E-mail</label></div>
                 <div class="col col-auto">
                     <input
@@ -15,13 +19,13 @@
             </div>
             <div class="row">
                 <div class="col col-md-3">
-                    <label for="fullname">Volledige naam</label>
+                    <label for="full_name">Volledige naam</label>
                 </div>
                 <div class="col-auto">
                     <input
                         class="form-control"
                         type="text"
-                        formControlName="fullname"
+                        formControlName="full_name"
                         id="fullname"
                         placeholder="Je volledige naam"
                     />
